@@ -3,10 +3,18 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { getAllStudents } from './api/client'
 import {Button, Radio} from 'antd'
+import { useEffect, useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+
+  
+    getAllStudents()
+    .then(res => res.data)
+    .then(console.log)
+
   return (
     <>
       <div className="App">

@@ -1,6 +1,6 @@
 import axios from 'axios';
 // import fetch from 'unfetch';
-// const url = process.env.NEXT_PUBLIC_SPRINGBOOT_API_URL
+const url = process.env.NEXT_PUBLIC_SPRINGBOOT_API_URL
 
 //method to return all students
 const checkStatus = response => {
@@ -14,5 +14,8 @@ const checkStatus = response => {
 };
 
 export const getAllStudents = () =>
-  axios.get("http://localhost:8080/api/v1/students")
+  axios.get(`${url}/api/v1/students`)
     .then(checkStatus);
+
+
+// This code defines a React component that uses React hooks to fetch a list of students from an API and update the component's state.
