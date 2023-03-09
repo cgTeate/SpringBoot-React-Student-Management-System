@@ -18,13 +18,13 @@ public class StudentController {
         List<Student> students = Arrays.asList(
                 new Student(
                         1L,
-                        "Jamila",
-                        "jamila@amigoscode.edu",
+                        "Emma",
+                        "emma@washburn.edu",
                         Gender.FEMALE),
                 new Student(
                         2L,
-                        "Alex",
-                        "alex@amigoscode.edu",
+                        "Calvin",
+                        "calvin@washburn.edu",
                         Gender.MALE)
         );
         return students;
