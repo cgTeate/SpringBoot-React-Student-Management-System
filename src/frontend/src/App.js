@@ -1,95 +1,87 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import { getAllStudents } from './api/client'
-import { useEffect, useState } from 'react'
+import {useState, useEffect} from 'react'
+import {getAllStudents} from "./client";
 import {
-  Layout,
-  Menu,
-  Breadcrumb,
-  Table, Spin, Empty
+    Layout,
+    Menu,
+    Breadcrumb,
+    Table, Spin, Empty
 } from 'antd';
 import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
-  LoadingOutlined
+    DesktopOutlined,
+    PieChartOutlined,
+    FileOutlined,
+    TeamOutlined,
+    UserOutlined,
+    LoadingOutlined
 } from '@ant-design/icons';
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+
+import './App.css';
+
+const {Header, Content, Footer, Sider} = Layout;
+const {SubMenu} = Menu;
 
 const columns = [
-  {
-      title: 'Id',
-      dataIndex: 'id',
-      key: 'id',
-  },
-  {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-  },
-  {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-  },
-  {
-      title: 'Gender',
-      dataIndex: 'gender',
-      key: 'gender',
-  },
+    {
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
+    },
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+    },
+    {
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+    },
+    {
+        title: 'Gender',
+        dataIndex: 'gender',
+        key: 'gender',
+    },
 ];
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
-  const [students, setStudents] = useState([]);
+function App() {
+    const [students, setStudents] = useState([]);
     const [collapsed, setCollapsed] = useState(false);
     const [fetching, setFetching] = useState(true);
 
-    const fetchStudents = () => {
-      getAllStudents()
-        .then(res => {
-          console.log(res.data);
-          setStudents(res.data);
-          setFetching(false);
-        })
-        .catch(error => {
-          console.error(error);
-          setFetching(false);
-        });
-    };
+    const fetchStudents = () =>
+        getAllStudents()
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setStudents(data);
+                setFetching(false);
+            })
 
-  useEffect(() => {
-    console.log("component is mounted");
-    fetchStudents();
-  }, []);
+    useEffect(() => {
+        console.log("component is mounted");
+        fetchStudents();
+    }, []);
 
-  const renderStudents = () => {
-    if (fetching) {
-        return <Spin indicator={antIcon} />
+    const renderStudents = () => {
+        if (fetching) {
+            return <Spin indicator={antIcon} />
+        }
+        if (students.length <= 0) {
+            return <Empty />;
+        }
+        return <Table
+            dataSource={students}
+            columns={columns}
+            bordered
+            title={() => 'Students'}
+            pagination={{ pageSize: 50 }}
+            scroll={{ y: 240 }}
+        />;
     }
-    if (students.length <= 0) {
-        return <Empty />;
-    }
-    return <Table
-        dataSource={students}
-        columns={columns}
-        bordered
-        title={() => 'Students'}
-        pagination={{ pageSize: 50 }}
-        scroll={{ y: 240 }}
-        rowKey={(student)=> student.id}
-    />;
-}
 
-  return (
-    <Layout style={{minHeight: '100vh'}}>
+    return <Layout style={{minHeight: '100vh'}}>
         <Sider collapsible collapsed={collapsed}
                onCollapse={setCollapsed}>
             <div className="logo"/>
@@ -125,8 +117,9 @@ export default function Home() {
                     {renderStudents()}
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>By Calvin Teater</Footer>
+            <Footer style={{textAlign: 'center'}}>By Amigoscode</Footer>
         </Layout>
     </Layout>
-  );
 }
+
+export default App;
