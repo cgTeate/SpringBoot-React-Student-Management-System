@@ -4,8 +4,12 @@ import {
     Layout,
     Menu,
     Breadcrumb,
-    Table, Spin, Empty, Button
+    Table,
+    Spin,
+    Empty,
+    Button,
 } from 'antd';
+
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -15,6 +19,7 @@ import {
     LoadingOutlined,
     PlusOutlined
 } from '@ant-design/icons';
+import StudentDrawerForm from "./StudentDrawerForm";
 
 import './App.css';
 
@@ -44,12 +49,13 @@ const columns = [
     },
 ];
 
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+const antIcon = <LoadingOutlined style={{fontSize: 24}} spin/>;
 
 function App() {
     const [students, setStudents] = useState([]);
     const [collapsed, setCollapsed] = useState(false);
     const [fetching, setFetching] = useState(true);
+    const [showDrawer, setShowDrawer] = useState(false);
 
     const fetchStudents = () =>
         getAllStudents()
@@ -67,21 +73,33 @@ function App() {
 
     const renderStudents = () => {
         if (fetching) {
-            return <Spin indicator={antIcon} />
+            return <Spin indicator={antIcon}/>
         }
         if (students.length <= 0) {
-            return <Empty />;
+            return <Empty/>;
         }
-        return <Table
-            dataSource={students}
-            columns={columns}
-            bordered
-            title={() => <Button type="primary" shape="round" icon={<PlusOutlined />} size="small">
-            Add New Student
-        </Button>}
-            pagination={{ pageSize: 50 }}
-            scroll={{ y: 240 }}
-        />;
+        return <>
+            <StudentDrawerForm
+                showDrawer={showDrawer}
+                setShowDrawer={setShowDrawer}
+            />
+            <Table
+                dataSource={students}
+                columns={columns}
+                bordered
+                title={() =>
+                    <Button
+                        onClick={() => setShowDrawer(!showDrawer)}
+                        type="primary" shape="round" icon={<PlusOutlined/>} size="small">
+                        Add New Student
+                    </Button>
+                }
+                pagination={{pageSize: 50}}
+                scroll={{y: 500}}
+                rowKey={student => student.id}
+            />
+        </>
+
     }
 
     return <Layout style={{minHeight: '100vh'}}>
@@ -120,7 +138,7 @@ function App() {
                     {renderStudents()}
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>By Calvin</Footer>
+            <Footer style={{textAlign: 'center'}}>By Amigoscode</Footer>
         </Layout>
     </Layout>
 }
