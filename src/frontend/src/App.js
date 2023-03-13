@@ -24,6 +24,7 @@ import {
     PlusOutlined
 } from '@ant-design/icons';
 import StudentDrawerForm from "./StudentDrawerForm";
+import StudentDrawerEditForm from "./StudentDrawerEditForm";
 
 import './App.css';
 import {errorNotification, successNotification} from "./Notification";
@@ -60,59 +61,15 @@ const removeStudent = (studentId, callback) => {
     })
 }
 
-const columns = fetchStudents => [
-    {
-        title: '',
-        dataIndex: 'avatar',
-        key: 'avatar',
-        render: (text, student) =>
-            <TheAvatar name={student.name}/>
-    },
-    {
-        title: 'Id',
-        dataIndex: 'id',
-        key: 'id',
-    },
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-    },
-    {
-        title: 'Email',
-        dataIndex: 'email',
-        key: 'email',
-    },
-    {
-        title: 'Gender',
-        dataIndex: 'gender',
-        key: 'gender',
-    },
-    {
-        title: 'Actions',
-        key: 'actions',
-        render: (text, student) =>
-            <Radio.Group>
-                <Popconfirm
-                    placement='topRight'
-                    title={`Are you sure to delete ${student.name}`}
-                    onConfirm={() => removeStudent(student.id, fetchStudents)}
-                    okText='Yes'
-                    cancelText='No'>
-                    <Radio.Button value="small">Delete</Radio.Button>
-                </Popconfirm>
-                <Radio.Button value="small">Edit</Radio.Button>
-            </Radio.Group>
-    }
-];
-
 const antIcon = <LoadingOutlined style={{fontSize: 24}} spin/>;
 
 function App() {
     const [students, setStudents] = useState([]);
+    const [student, setStudent] = useState("");
     const [collapsed, setCollapsed] = useState(false);
     const [fetching, setFetching] = useState(true);
     const [showDrawer, setShowDrawer] = useState(false);
+    const [showEditDrawer, setShowEditDrawer] = useState(false);
 
     const fetchStudents = () =>
         getAllStudents()
@@ -156,6 +113,12 @@ function App() {
             </>
         }
         return <>
+            <StudentDrawerEditForm
+                showDrawer={showEditDrawer}
+                setShowDrawer={setShowEditDrawer}
+                student={student}
+                fetchStudents={fetchStudents}
+            />
             <StudentDrawerForm
                 showDrawer={showDrawer}
                 setShowDrawer={setShowDrawer}
@@ -185,6 +148,57 @@ function App() {
         </>
 
     }
+
+    const columns = fetchStudents => [
+        {
+            title: '',
+            dataIndex: 'avatar',
+            key: 'avatar',
+            render: (text, student) =>
+                <TheAvatar name={student.name}/>
+        },
+        {
+            title: 'Id',
+            dataIndex: 'id',
+            key: 'id',
+        },
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
+            title: 'Gender',
+            dataIndex: 'gender',
+            key: 'gender',
+        },
+        {
+            title: 'Actions',
+            key: 'actions',
+            render: (text, student) =>
+                <Radio.Group>
+                    <Popconfirm
+                        placement='topRight'
+                        title={`Are you sure to delete ${student.name}`}
+                        onConfirm={() => removeStudent(student.id, fetchStudents)}
+                        okText='Yes'
+                        cancelText='No'>
+                        <Radio.Button value="small">Delete</Radio.Button>
+                    </Popconfirm>
+                    <Radio.Button onClick={() =>
+                            setShowEditDrawer(!showEditDrawer)
+                            + setStudent(student)
+                            + console.log("Student ID: ", student.id)}
+                                      value="small">Edit
+                        </Radio.Button>
+                </Radio.Group>
+        }
+    ];
 
     return <Layout style={{minHeight: '100vh'}}>
         <Sider collapsible collapsed={collapsed}
