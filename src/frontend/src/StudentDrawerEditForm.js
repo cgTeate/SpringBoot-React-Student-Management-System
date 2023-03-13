@@ -30,8 +30,8 @@ export default function StudentDrawerEditForm({showDrawer, setShowDrawer, studen
     const onFinish = student => {
         setSubmitting(true)
         console.log(JSON.stringify(student, null, 2));
-        editStudent(student
-            .then(() => {
+        editStudent(student)
+        .then(() => {
             console.log("student updated")
             onCLose();
             successNotification(
