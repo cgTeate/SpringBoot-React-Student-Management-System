@@ -29,10 +29,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Set up Java
+      - name: Set up JDK 18.0.2
         uses: actions/setup-java@v2
         with:
-          java-version: '17'
+          java-version: '18.0.2'
+          distribution: 'oracle'
       - name: Maven Clean Package
         run: |
           mvn --no-transfer-progress clean package -P build-frontend
