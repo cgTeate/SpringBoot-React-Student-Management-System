@@ -32,6 +32,11 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'adopt'
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          registry-url: 'https://registry.npmjs.org/'
       - name: Maven Clean Package
         run: |
           mvn --no-transfer-progress clean package -P build-frontend
