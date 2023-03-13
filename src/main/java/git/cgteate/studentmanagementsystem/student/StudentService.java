@@ -14,4 +14,13 @@ public class StudentService {
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
+
+    public void addStudent(Student student) {
+        // TODO: check if email is taken
+        studentRepository.save(student);
+    }
+    public void deleteStudent(Long studentId) {
+         // TODO: check if student exists
+        studentRepository.deleteById(studentId);
+    }
 }
