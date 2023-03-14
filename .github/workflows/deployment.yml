@@ -50,6 +50,7 @@ jobs:
         uses: actions/setup-java@v3.10.0
         with:
           java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'adopt'
 
       - name: Build Number
         id: build-number
