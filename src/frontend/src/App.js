@@ -11,7 +11,7 @@ import {
     Badge,
     Tag,
     Avatar,
-    Radio, Popconfirm
+    Radio, Popconfirm, Image
 } from 'antd';
 
 import {
@@ -212,9 +212,9 @@ function App() {
                     Option 2
                 </Menu.Item>
                 <SubMenu key="sub1" icon={<UserOutlined/>} title="User">
-                    <Menu.Item key="3">Tom</Menu.Item>
-                    <Menu.Item key="4">Bill</Menu.Item>
-                    <Menu.Item key="5">Alex</Menu.Item>
+                    <Menu.Item key="3">Anh</Menu.Item>
+                    <Menu.Item key="4">Je'Shon</Menu.Item>
+                    <Menu.Item key="5">Shane</Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" icon={<TeamOutlined/>} title="Team">
                     <Menu.Item key="6">Team 1</Menu.Item>
@@ -230,13 +230,25 @@ function App() {
             <Content style={{margin: '0 16px'}}>
                 <Breadcrumb style={{margin: '16px 0'}}>
                     <Breadcrumb.Item>User</Breadcrumb.Item>
-                    <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                    <Breadcrumb.Item>Calvin</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
                     {renderStudents()}
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>By Amigoscode</Footer>
+            <Footer style={{textAlign: 'center'}}>
+                <a 
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href="https://github.com/cgTeate/SpringBoot-React-Student-Management-System"
+                >
+                    <Image
+                        width={75}
+                        src="https://cdn.discordapp.com/attachments/917547212475621456/1085026257068105768/Calvin_Teater2022S.png"
+                        className="img"
+                    />
+                </a>
+            </Footer>
         </Layout>
     </Layout>
 }
