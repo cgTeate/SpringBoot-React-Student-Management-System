@@ -51,6 +51,18 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'adopt'
+          
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.13.0'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Install npm version 9.5.0
+        run: npm install -g npm@9.5.0
+
+      - name: Remove node_modules directory
+        run: rm -rf src/frontend/node/node_modules
 
       - name: Build Number
         id: build-number
