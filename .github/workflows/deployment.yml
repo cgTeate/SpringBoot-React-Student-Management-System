@@ -21,8 +21,6 @@ env:
   EB_ENVIRONMENT_NAME: Springbootreactfullstack-env
   EB_APPLICATION_NAME: springboot-react-fullstack
   EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
-  # Database
-  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
 jobs:
   deploy:
