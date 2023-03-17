@@ -42,9 +42,9 @@ class StudentServiceTest {
     void canAddStudent() {
         // given
         Student student = new Student(
-                "Jamila",
-                "jamila@gmail.com",
-                Gender.FEMALE
+                "Calvin",
+                "calvin@gmail.com",
+                Gender.MALE
         );
 
         // when
@@ -66,9 +66,9 @@ class StudentServiceTest {
     void willThrowWhenEmailIsTaken() {
         // given
         Student student = new Student(
-                "Jamila",
-                "jamila@gmail.com",
-                Gender.FEMALE
+                "Calvin",
+                "calvin@gmail.com",
+                Gender.MALE
         );
 
         given(studentRepository.selectExistsEmail(anyString()))
