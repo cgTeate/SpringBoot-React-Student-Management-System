@@ -38,6 +38,11 @@ public class StudentService {
         studentRepository.deleteById(studentId);
     }
     public void editStudent(Student student) {
+        if (!studentRepository.existsById(student.getId())) {
+            throw new StudentNotFoundException(
+                    "Student with id " + student.getId() + " does not exists");
+        }
         studentRepository.save(student);
     }
+    
 }
