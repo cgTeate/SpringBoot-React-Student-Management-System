@@ -4,6 +4,8 @@ import git.cgteate.studentmanagementsystem.student.Gender;
 import git.cgteate.studentmanagementsystem.student.Student;
 import git.cgteate.studentmanagementsystem.student.StudentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -35,13 +38,22 @@ public class StudentIT {
     @Autowired
     private StudentRepository studentRepository;
 
+    private final Faker faker = new Faker();
+
     @Test
     void canRegisterNewStudent() throws Exception {
         // given
+        String name = String.format(
+                "%s %s",
+                faker.name().firstName(),
+                faker.name().lastName()
+        );
+
         Student student = new Student(
-                "Calvin",
-                "lol@gmail.com",
-                Gender.MALE
+                name,
+                String.format("%s@washburn.edu",
+                        StringUtils.trimAllWhitespace(name.trim().toLowerCase())),
+                Gender.FEMALE
         );
 
         // when
